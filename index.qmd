@@ -135,11 +135,13 @@ Plot.plot({
 
 Can you think of a better way to display this data, potentially using similar selectors? Describe the changes you'd make.
 
-> 
+> I think possible displaying a graph that fills more of the area such as a heat map showing the slow change in color would hopefully create a good visual.
 
 Is your proposed graphic supported by vega-lite? Why or why not? (You can provide links to documentation/stackOverflow)
 
-> 
+> The heat map on vega can be found on the website listed below.
+>
+> [2D Histogram Heatmap \| Vega-Lite](https://vega.github.io/vega-lite/examples/rect_binned_heatmap.html)
 
 ## Adding selectors
 
@@ -151,9 +153,13 @@ viewof space2 = Inputs.select(["HSL", "RGB"], {label: "Color space (axes)", valu
 // selector for color saturation/intensity
 viewof minSat2 = Inputs.range([0, 100], {label: "Min saturation (%)", value: 0, step: 1})
 
+//max stat selector
+
+viewof maxSat2 = Inputs.range([minSat2,100], {label: "Max saturation (%)",value: 0, step:1})
 
 // filter out points based on saturation
-filtered2 = colors.filter(d => d.s >= minSat2)
+filtered2 = colors.filter(d => (d.s >= minSat2) && (d.s <= maxSat2))
+
 
 // Create an x variable that's conditional on what is selected,
 // changing both the values and the label accordingly
